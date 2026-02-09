@@ -1,0 +1,225 @@
+/* Existing CSS */
+.landing-container {
+    width: 100vw;
+    height: 100vh;
+    background: #020617;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.intro-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 100;
+}
+
+.landing-content {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.landing-content.visible {
+    opacity: 1;
+}
+
+.landing-content.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.aurora-bg {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+    animation: rotate 20s linear infinite;
+    z-index: 1;
+}
+
+.hero-section {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logo-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lexpath-logo-3d {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(45, 212, 191, 0.4));
+    z-index: 5;
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.radiating-light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.6) 0%, transparent 70%);
+    filter: blur(40px);
+    animation: pulse-glow 3s infinite alternate;
+    z-index: 1;
+}
+
+.brand-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+    color: #64748b;
+    margin-top: -1rem;
+}
+
+.enter-btn {
+    margin-top: 2rem;
+    padding: 1rem 3rem;
+    font-size: 1.1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    border-radius: 4px;
+    color: #2dd4bf;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.enter-btn:hover {
+    background: rgba(45, 212, 191, 0.1);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+    transform: translateY(-2px);
+    letter-spacing: 3px;
+}
+
+.landing-footer {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: #94a3b8;
+    z-index: 10;
+    opacity: 0.9;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    width: 100%;
+    justify-content: center;
+}
+
+.footer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 32px;
+    cursor: default;
+}
+
+.footer-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+}
+
+.spin-slow {
+    /* Subtle hover lift instead of spin */
+    transition: transform 0.4s ease;
+}
+
+.footer-item:hover .spin-slow {
+    transform: translateY(-2px);
+}
+
+.pulse-fast {
+    /* Subtle hover glow instead of pulse */
+    transition: filter 0.4s ease;
+}
+
+.footer-item:hover .pulse-fast {
+    filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.6)) brightness(1.2);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(1deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes pulse-glow {
+    0% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
