@@ -4,7 +4,8 @@ import { action } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 
-const FREE_REQUEST_LIMIT = 7;
+const FREE_REQUEST_LIMIT = 10;
+const REFRESH_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes in milliseconds
 
 type StressTestResult = {
     success: boolean;
@@ -116,14 +117,21 @@ export const runStressTest = action({
             ipAddress,
         });
 
-        const currentCount = (usage?.requestCount as number) || 0;
+        const lastRequestAt = usage?.lastRequestAt as number || 0;
+        const timeSinceLastRequest = Date.now() - lastRequestAt;
+
+        // Reset count if more than 2 minutes have passed since last request
+        const shouldReset = timeSinceLastRequest >= REFRESH_INTERVAL_MS;
+        const currentCount = shouldReset ? 0 : ((usage?.requestCount as number) || 0);
 
         if (currentCount >= FREE_REQUEST_LIMIT) {
+            const timeUntilReset = REFRESH_INTERVAL_MS - timeSinceLastRequest;
+            const secondsUntilReset = Math.ceil(timeUntilReset / 1000);
             return {
                 success: false,
                 limitExceeded: true,
                 remainingRequests: 0,
-                message: "Free request limit exceeded. Please enter your own API key.",
+                message: `Free request limit exceeded. Limit resets in ${secondsUntilReset} seconds.`,
             };
         }
 
@@ -214,7 +222,13 @@ export const getRemainingRequests = action({
         const usage = await ctx.runQuery(internal.usage.getUsageByIp, {
             ipAddress,
         });
-        const currentCount = (usage?.requestCount as number) || 0;
+
+        const lastRequestAt = usage?.lastRequestAt as number || 0;
+        const timeSinceLastRequest = Date.now() - lastRequestAt;
+        const shouldReset = timeSinceLastRequest >= REFRESH_INTERVAL_MS;
+
+        const currentCount = shouldReset ? 0 : ((usage?.requestCount as number) || 0);
+
         return {
             remainingRequests: Math.max(0, FREE_REQUEST_LIMIT - currentCount),
             totalUsed: currentCount,
