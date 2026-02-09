@@ -4,7 +4,7 @@ import { action } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 
-const FREE_REQUEST_LIMIT = 5;
+const FREE_REQUEST_LIMIT = 7;
 
 type StressTestResult = {
     success: boolean;
