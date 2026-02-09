@@ -16,7 +16,7 @@ LEXPATH is an adversarial AI simulator that stress-tests your legal strategies b
   - 🔒 IP Guardian - Identifies infringement risks
 
 - **Multi-AI Synthesis**
-  - Primary analysis by Gemini 2.0 Flash
+  - Primary analysis by Gemini 3.0
   - Devil's advocate critique by Qwen 3
   - Legal precedent citations by Saul 7B
   - Final synthesized verdict
@@ -57,7 +57,7 @@ Keys can be added via the Settings panel in the app.
 - **Frontend**: React + TypeScript + Vite
 - **Styling**: CSS with Jarvis teal theme
 - **Backend**: Convex (serverless)
-- **AI**: Google Gemini 2.0 Flash
+- **AI**: Google Gemini 3.0
 - **Animations**: Framer Motion
 
 ## 📁 Project Structure

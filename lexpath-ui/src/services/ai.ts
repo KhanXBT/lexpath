@@ -180,7 +180,7 @@ export async function runStressTestDirect(
             saulCritique = await runSaulCritique(strategy, activeHfKey);
         }
 
-        // Gemini Final Synthesis - consults all inputs
+        // Gemini 3 Final Synthesis - consults all inputs
         const { bestAnswer, finalVerdict } = await runGeminiFinalSynthesis(
             model,
             strategy,
@@ -260,7 +260,7 @@ async function runSaulCritique(strategy: string, apiKey: string): Promise<string
     }
 }
 
-// Gemini Final Synthesis - Consults all AI inputs and gives final answer + verdict
+// Gemini 3 Final Synthesis - Consults all AI inputs and gives final answer + verdict
 async function runGeminiFinalSynthesis(
     model: any,
     strategy: string,
@@ -269,7 +269,7 @@ async function runGeminiFinalSynthesis(
     saulCritique?: string
 ): Promise<{ bestAnswer: string; finalVerdict: string }> {
     try {
-        const synthesisPrompt = `You are the SUPREME LEGAL ANALYST "GEMINI JUDGE." You have consulted with multiple AI legal experts and must now synthesize their insights into a FINAL, AUTHORITATIVE response.
+        const synthesisPrompt = `You are the SUPREME LEGAL ANALYST "GEMINI 3 JUDGE." You have consulted with multiple AI legal experts and must now synthesize their insights into a FINAL, AUTHORITATIVE response.
 
 YOUR ROLE:
 1. Review all inputs from your expert consultants
