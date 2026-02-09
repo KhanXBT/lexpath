@@ -1,0 +1,11 @@
+{
+    "buildCommand": "cd lexpath-ui && npm install && npm run build",
+    "outputDirectory": "lexpath-ui/dist",
+    "framework": "vite",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ]
+}
