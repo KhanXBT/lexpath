@@ -18,8 +18,14 @@ function VideoLogo() {
         }
     };
 
-    // Invisible Interaction Handler: Ensures playback starts UNMUTED on first click if blocked
+    // Aggressive attempt to play muted immediately for autoplay compliance
     useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.muted = true;
+            setIsMuted(true);
+            videoRef.current.play().catch(e => console.log("Autoplay blocked even muted", e));
+        }
+
         const startUnmuted = () => {
             if (videoRef.current && !loopEnabled) {
                 videoRef.current.muted = false;
@@ -28,17 +34,13 @@ function VideoLogo() {
             }
         };
 
-        // Aggressive attempt to play unmuted immediately (Only if not already looping)
-        if (videoRef.current && !loopEnabled) {
-            setIsMuted(false);
-            videoRef.current.play().catch(() => {
-                // If blocked, we simply wait for the click. NO AUTO-MUTE.
-                console.log("Autoplay blocked. Waiting for interaction.");
-            });
-        }
-
+        // Listen for ANY interaction to unmute and play
         document.addEventListener('click', startUnmuted, { once: true });
-        return () => document.removeEventListener('click', startUnmuted);
+        document.addEventListener('touchstart', startUnmuted, { once: true });
+        return () => {
+            document.removeEventListener('click', startUnmuted);
+            document.removeEventListener('touchstart', startUnmuted);
+        };
     }, [loopEnabled]);
 
     return (
